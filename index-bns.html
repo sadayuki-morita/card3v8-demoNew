@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+<title>MULTI TOUCH CARD</title>
+<!-- ↓↓↓ 必須ファイルの読込 ↓↓↓ -->
+<script type="text/javascript" src="./js/analyze.js" defer></script>
+<script type="text/javascript" src="./js/ctrl.js" defer></script>
+<!-- ↑↑↑ 必須ファイルの読込 ↑↑↑ -->
+<script>
+/**
+ * カード解析イベントハンドリング処理
+ * 実際に導入される際は解説関係のコメントは削除願います
+ */
+
+var analyzer = null;// カード解析処理
+
+ /****************************************************************
+  * カード解析処理制御設定
+  * この設定値は初期値です。必要に応じて有効化して値を設定して下さい
+  ****************************************************************/
+/*/ ↓↓↓ この変数は必要に応じて有効化して下さい ↓↓↓ */
+var cardConf = {
+/*
+	'touchWaitTime': 700,							// カード識別成功時に次のタッチを受け付けるまでのインターバル(msec)
+	'showErrorAlert': true,							// エラーアラート表示フラグ
+	'touchElement': 'touch',						// タッチを受け付ける要素(ID又は要素で指定)
+	'initModalElemId': 'init_modal',				// メディア読込用モーダルの要素のID
+	'initModalDoneElemId': 'init_modal_done',		// メディア読込用モーダルを閉じる(ボタン)要素のID
+	'defaultContentsId': 'default_contents',		// 初期表示要素のID
+	'variableContentsClass': '.variable_contents',	// 動的表示切替要素のクラス
+	'elemIdPrefix': 'i',							// カード識別後、遷移ではなくコンテンツを表示する際に使用。表示要素のID属性値に指定する接頭辞で「i」を指定したなら「id="i*"」の設定された要素が表示される(*の中は1〜3の数値でカードの上側持ち手から下に向けて1,2,3となる)、HTMLパートと合わせて実装を確認して下さい
+	'willStartCollbackKey': 'start',				// カード解析処理実行直前に呼ばれるコールバックに指定するキー名
+	'onErrorCallbackKey': 'error',					// カード解析処理失敗に呼ばれるコールバックに指定するキー名
+	'okSoundElemId': 'beep_ok',						// カードタッチ成功時効果音要素のID
+	'ngSoundElemId': 'beep_ng',						// カードタッチ失敗時効果音要素のID
+	'playSound': true,								// カードタッチ後に効果音を鳴らすか否かの設定(true:鳴らす、false:鳴らさない)
+	'commonErrorMsg': 'カードが認識出来ませんでした。',	// 汎用エラーメッセージ
+*/
+	//'touchElement': document,// <- 要素指定でタッチイベントを観測する例
+};
+/*/ ↑↑↑ この変数は必要に応じて有効化して下さい ↑↑↑ */
+
+
+
+/****************************************************************
+ * カード解析時に呼ばれる処理群
+ * 実装時は下記スクリプトを編集してご利用下さい
+ ****************************************************************/
+var callbacks = {
+	/* カード解析開始直前に呼ばれる処理 */
+	'start': function() { // cardConf.willStartCollbackKey: function() {
+		/* 必要に応じて処理を実装 */
+		console.log('start analyze');
+	},
+
+
+	/* カード上部(1/A)の持ち手を摘んでタッチした時に呼ばれる処理 */
+	'1': function(cardId) {
+		/* 画面遷移する場合はその先の処理は不要なのでfalseを返却 */
+		console.log('Result: ' + cardId);
+
+
+		///var beepTimeOut = setTimeout(function() {
+			/* タッチ後画面遷移する場合、効果音の再生完了を待ってから遷移するので遅延実行 */
+			location.href = 'https://sho.benesse.co.jp/?ui_inf_rou=organic&_ga=2.93247194.671204356.1733724899-1845906174.1733724898';
+		//}, cardConf.touchWaitTime);
+		
+		return false; /* falseを返却する場合表示内容が切り替らないのでHTML側の実装は無くても問題ない */
+	},
+
+
+	/* カード中部(2/B)の持ち手を摘んでタッチした時に呼ばれる処理 */
+	'2': function(cardId) {
+		/* 簡易的にコンテンツの表示切替を行う場合 */
+		console.log('Result: ' + cardId);
+		location.href = 'https://www.benesse.co.jp/';		
+		return false; /* trueを返したら「elemIdPrefix+'1'」のID属性が設定された要素を表示 */
+	},
+
+
+	/* カード下部(3/C)の持ち手を摘んでタッチした時に呼ばれる処理 */
+	'3': function(cardId) {
+		/*
+		 * コンテンツの表示切替制御を行う場合
+		 * pageCtrl: 正規のカードとして認識成功時に画面表示コンテンツの自動変更を有効にするか否か
+		 * restart: pageCtrlが有効な時にカードのタッチ観測を自動的に再開するか否か(デフォルトのタッチ観測要素が前面[z-index: 1000;]にあるので背面のリンク要素等がそのままだと選択できない為)
+		 */
+		console.log('Result: ' + cardId);
+		location.href = 'https://www.dnp.co.jp/index.html';			
+		//if ((typeof analyzer === 'object') && (analyzer !== null)) {
+		//	analyzer.stop(); /* 観測を停止し、表示コンテンツのクリック操作等を有効化(※「analyzer.start();」で観測再開可能) */
+		//}
+		return false;	//{'pageCtrl': true, 'restart': false}; //return [true, false];// ←のように配列で返却した場合[0]がpageCtrlと同義で[1]がrestartと同義
+	},
+
+
+	/* カード解析エラー発生時に呼ばれる処理 */
+	'error': function(errorCode, errorMessage, errorId) { // cardConf.onErrorCallbackKey: function(errorCode, errorMessage, errorId) {
+		/*
+		 * errorCode 0: 正常, 1: 識別エラー, 3: 処理エラー
+		 * エラーコードが1の場合は無視しても問題ないが3の場合は処理に何らかの不具合が発生した場合となるので要状況確認
+		 * ※ エラー発生時に「analyzer.stop();」でタッチイベントの観測を停止させる事も可能
+		 * errorIdに値がある時は解析結果が不完全(カード自体は識別できたが持ち手が識別できなかった場合)
+		 */
+		/* 必要に応じて処理を実装 */
+		console.log('analyze error[' + analyzer.getErrorMessage(errorCode) + ']', errorMessage, errorId);
+	}
+};
+
+
+
+
+/* 即時関数で環境確認 */
+var isPassive = false;	// パッシブ対応か否かを判定した結果を格納する
+(function() {
+	try { 
+		var options = Object.defineProperty({}, 'passive', { get: function() { isPassive = true; } });
+		window.addEventListener('test', options, options);  
+		window.removeEventListener('test', options, options); 
+	} catch (exception) { 
+		isPassive = false; 
+	}
+})();
+/* 各要素展開完了時にカードタッチ待受処理開始 */
+var readyFunc = function(e) {
+	if (typeof initCtrl !== 'undefined') {
+		analyzer = initCtrl(callbacks, cardConf);
+		//analyzer.enableScrollAction = true;// ←1本指での操作を許容する場合はコメントアウトを解除(スクロール、対象を要素にした場合はクリックイベントにも影響有り)
+	}
+};
+/* 読込完了イベントを設定 */
+(function(){
+	window.addEventListener('load', readyFunc, isPassive ? {passive: false, capture: false} : false);
+})();
+</script>
+<style>
+* { font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO"; margin: 0; padding: 0; }
+html, body { box-sizing: border-box; font-size: 4vw; height: 100%; margin: 0; padding: 0; position: relative; width: 100%; }
+#contents { box-sizing: border-box; height: 100%; margin: 0; padding: 0; position: relative; width: 100%; }
+.variable_contents { box-sizing: border-box; display: none; height: 100%; width: 100%; }
+#default_contents { box-sizing: border-box; width: 100%; }
+#main_contents { box-sizing: border-box; padding: 0; width: 100%; }
+.resizeimage { width: 100%; }
+.img_contents { width: 100%; }
+.variable_contents > * { width: 100%; }
+#callback_audio { display: none; }
+/* モーダル用CSS */
+#init_modal { background-color: rgba(32,32,32,0.7); box-sizing: border-box; color: #244F80; display: block; height: 100%; left: 0; position: fixed; top: 0; width: 100%; z-index: 99999; }
+#init_modal_box { background: #FFF; border-radius: 2vw; box-sizing: border-box; height: 20vh; left: 50%; margin: -10vh 0 0 -35vw; min-height: 30vw; position: absolute; top: 50%; width: 70vw; }
+#init_modal_title { box-sizing: border-box; font-size: 5vw; font-weight: bold; height: 20%; padding: 2vw; width: 100%; }
+#init_modal_message { box-sizing: border-box; font-size: 4vw; height: 52%; padding: 2vw 3vw; width: 100%; }
+#init_modal_done { box-sizing: border-box; border-top: solid 1px #666; font-size: 5vw; font-weight: bold; height: 28%; padding: 0.75vh; text-align: center; width: 100%; }
+.link { text-decoration: none; }
+</style>
+</head>
+<body>
+<div id="contents">
+
+	<!-- デフォルトコンテンツ(初期表示) -->
+	<div id="default_contents">
+		<div data-role="page">
+			<div data-role="content" id="main_contents">
+				<div id="resizeimage">
+					<img id="ccard1" class="ccard img_contents" src="./img/touch.png" alt="main_image" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ↓↓↓ カードの持ち手毎に表示内容を切替える場合の実装(別ページに画面遷移する場合は不要) ↓↓↓ -->
+
+	<!-- 持ち手1/Aに紐づく表示コンテンツ -->
+	<!--div id="i1" class="variable_contents c1">
+		<a href="https://www.im-lab.com/" class="link">IML</a>
+	</div-->
+
+	<!-- 持ち手2/Bに紐づく表示コンテンツ -->
+	<!--div id="i2" class="variable_contents c2">
+		<p>Multi touch card touched [2]</p>
+	</div-->
+
+	<!-- 持ち手3/Cに紐づく表示コンテンツ -->
+	<!--div id="i3" class="variable_contents c3">
+		<a href="https://www.im-lab.com/----.html" class="link">IML(overview)</a>
+	</div-->
+
+	<!-- ↑↑↑ カードの持ち手毎に表示内容を切替える場合の実装(別ページに画面遷移する場合は不要) ↑↑↑ -->
+
+</div>
+
+
+<!-- ↓↓↓ 効果音(使用する場合cardConf.okSoundElemId|cardConf.ngSoundElemIdの値とid属性値を合わせる事) ↓↓↓ -->
+<div id="callback_audio">
+	<audio src="./res/beeps/pass.mp3" id="beep_ok"></audio>
+	<audio src="./res/beeps/warning.mp3" id="beep_ng"></audio>
+</div>
+<!-- ↑↑↑ 効果音(使用する場合cardConf.okSoundElemId|cardConf.ngSoundElemIdの値とid属性値を合わせる事) ↑↑↑ -->
+
+
+<!-- ↓↓↓ 効果音初期化用モーダル(この要素を定義しない場合効果音は再生されない) ↓↓↓ -->
+<div id="init_modal">
+	<div id="init_modal_box">
+		<div id="init_modal_title">Let's Try!!</div>
+		<div id="init_modal_message">マルチタッチカードで画面にタッチして下さい</div>
+		<div id="init_modal_done">OK</div>
+	</div>
+</div>
+<!-- ↑↑↑ 効果音初期化用モーダル(この要素を定義しない場合効果音は再生されない) ↑↑↑ -->
+
+
+</body>
+</html>

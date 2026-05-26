@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- redirect-->
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <!--title>Custom Prompt</title-->
+    <style>
+        /* モーダルのスタイル */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color:  rgba(32,32,32,0.7)
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #888;
+            border-radius: 2vw; 
+            width: 300px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 5vw; 
+        }
+
+        .modal button {
+            margin-top: 10px;
+            padding: 5px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>サービスコードを入力してください。</p>
+            <input type="text" id="userInput" name="prompt">
+            <button id="submitBtn">OK</button>
+        </div>
+    </div>
+    <!--form id="promptForm">
+        <label for="promptInput">サービスコードを入力してください。</label><br>
+        <input type="text" id="promptInput" name="prompt" />
+        <button type="submit">OK</button>
+    </form-->
+
+    <script>
+        // モーダルとボタンの要素を取得
+        const modal = document.getElementById("myModal");
+        const openPromptBtn = document.getElementById("openPrompt");
+        const submitBtn = document.getElementById("submitBtn");
+        const userInput = document.getElementById("userInput");
+
+        // ページロード時にlocalStorageからデフォルト値を設定
+        const savedPrompt = localStorage.getItem('prompt');
+        if (savedPrompt) {
+            userInput.value = savedPrompt; // 保存されている場合はデフォルトとして設定
+        }
+
+        // モーダルを開く
+        window.onload = function(){
+            modal.style.display = "block"; 
+        }
+
+        // 入力された値を取得し、モーダルを閉じる
+        submitBtn.onclick = function() {
+            const userCode = userInput.value;
+            modal.style.display = "none";
+
+            // フォーム送信時に入力値をlocalStorageに保存 
+            localStorage.setItem('prompt', userCode); // localStorageに保存
+
+            if(userCode=="skss"){
+                location.replace('https://multi-touchcard.com/card3v8-demoNew/index-skss.html'); 
+            } else if(userCode=="bns"){
+                location.replace('https://multi-touchcard.com/card3v8-demoNew/index-bns.html');  
+            } else if(userCode=="v8demo"){
+                location.replace('https://multi-touchcard.com/card3v8-demoNew/index-v8demo.html');  
+            } else if(userCode=="buscard"){
+                location.replace('https://multi-touchcard.com/card3v8-demoNew/index-buscard-en.html');  
+            } else if(userCode=="iml"){
+                location.replace('https://multi-touchcard.com/card3v8-demoNew/index-iml.html'); /* */
+            } else if(userCode=="asue"){
+                location.replace('https://multi-touchcard.com/card3v8-demoNew/index-asue.html'); 
+            } else if(userCode=="asue2"){
+                location.replace('https://multi-touchcard.com/card3v8-demoNew/index-asue2.html'); 
+            //
+            } else if(userCode=="scdemo2"){
+                location.replace('https://multi-touchcard.com/Sc_demo2New/');
+            } else if(userCode=="idcheck"){
+                location.replace('https://multi-touchcard.com/test2/card1_ID1S1T4U3_all/');
+            } else if(userCode=="rotation"){
+                location.replace('https://multi-touchcard.com/test2/rotation/Sc_demo4New/');
+            } else if(userCode=="train"){
+                location.replace('http://multi-touchcard.com/demo/card_train_demo3/');    
+            } else if(userCode=="train2"){
+                location.replace('https://multi-touchcard.com/demo/card_train_demo2/');
+            } else if(userCode=="train4"){
+                location.replace('https://multi-touchcard.com/demo/card_train_demo4/');
+            } else if(userCode=="cassette"){
+                location.replace('https://multi-touchcard.com/demo/card_cassette_demo/');
+            } else{
+            location.replace('https://multi-touchcard.com/nopage/'); 
+            }
+        }
+
+        // モーダルの外側をクリックしたら閉じる
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+

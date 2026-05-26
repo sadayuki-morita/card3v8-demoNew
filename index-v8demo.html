@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="format-detection" content="telephone=no">
+<!--
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+-->
+<title>MultiTouchCard(DEMO)</title>
+<script>
+	let srcIdFile="./js/c/cv8-10id.js";		//20260526 ディレクトリ構造見直し、IDコードファイルcv8.js以外の場合ここにファイル名を記載
+</script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" ></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="./css/toastr.min.css" />
+<link rel="stylesheet" href="./css/demo_page.css" />
+<link rel="stylesheet" href="./css/bootstrap.min.css" />
+<script type="text/javascript" src="./js/toastr.min.js"></script>
+<script type="text/javascript" src="./js/analyze.js" defer></script>
+<script type="text/javascript" src="./js/ctrl-v8.js" defer></script>
+<script type="text/javascript" src="./js/ws.js"></script>
+<script type="text/javascript" src="./js/cb.js"></script>
+<script>
+var isPassive = false, playSound = true, readyFunc = function(e) { if (typeof initCtrl !== 'undefined') { initCtrl(); } };
+(function() {
+	try {
+		var options = Object.defineProperty({}, 'passive', { get: function() { isPassive = true; } }); window.addEventListener('test', options, options); window.removeEventListener('test', options, options);
+	} catch (exception) {
+		isPassive = false;
+	}
+	window.addEventListener('load', readyFunc, isPassive ? {passive: false, capture: false} : false);
+})();
+</script>
+<style>
+* { margin: 0; padding: 0; }
+html, body { box-sizing: border-box; font-size: 4vw; height: 100%; margin: 0; padding: 0; position: relative; width: 100%; }
+iframe { border: none; }
+#contents { box-sizing: border-box; height: 100%; margin: 0; padding: 0; position: relative; width: 100%; }
+.variable_contents { box-sizing: border-box; display: none; height: 100%; width: 100%; }
+#default_contents { box-sizing: border-box; width: 100%; }
+#main_contents { box-sizing: border-box; padding: 0 2vw; width: 100%; }
+#message { font-size: 4vw; font-weight: bold; text-align: center; width: 100%; }
+#disp_message_top, #disp_message_bottom { box-sizing: border-box; margin: 1vh 0; width: 100%; }
+.resizeimage { width: 100%; }
+.img_contents { width: 100%; }
+.copyright { color: #666; display: inline-block; margin: 1vh 0; text-align: center; width: 100%; }
+.variable_contents > * { width: 100%; }
+#callback_audio { display: none; }
+.content_title{ font-size:5vw; }
+.youtube{ height:40%; }
+.izakaya_box img{ width:100%; }
+.row{ margin:0; }
+.select_border { border: solid 1vw #F00; }
+/*.ui-dialog { z-index: 9000 !important ;}*/
+</style>
+</head>
+<body>
+<div id="contents">
+	<!-- 初期表示コンテンツ -->
+	<div id="default_contents">
+		<div data-role="page">
+			<div data-role="content" id="main_contents">
+				<div id="disp_message_top">
+					<h2>Try Multi Touch CARD</h2>
+				</div>
+				<div id="resizeimage">
+					<img id="ccard1" class="ccard img_contents" src="./img/top_image.png" alt="main_image" />
+				</div>
+				<div id="disp_message_bottom">
+					カード右側の持ち手部分をつまんで画面をタッチして下さい
+				</div>
+			</div>
+			<div data-role="footer" id="footer">
+				<p class="copyright">Powered by IML Inc.</p>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 鴨川SW -->
+	<div id="ID10317" class="variable_contents ID10317">
+		<h2 class="content_title" style="color: #00A;">感動のシャワーを浴びよう！</h2>
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/RcokUFbD67w?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=RcokUFbD67w" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10317" preload="none" webkit-playsinline playsinline>
+			<source src="./medias/cm.mp4" type="video/mp4" />
+		</video>
+	</div>
+	<div id="ID10317-1" class="variable_contents ID10317">
+		<h2 class="content_title" style="color: #00A;">感動のシャワーを浴びよう！</h2>
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/RcokUFbD67w?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=RcokUFbD67w" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10317-1" preload="none" webkit-playsinline playsinline>
+			<source src="./medias/cm.mp4" type="video/mp4" />
+		</video>
+	</div>
+	<div id="ID10317-2" class="variable_contents ID10317">
+		<img src="./img/170_2.jpg" />
+	</div>
+	<div id="ID10317-3" class="variable_contents ID10317">
+		<img src="./img/170_3.jpg" />
+	</div>
+
+
+	<!-- ギフト -->
+	<div id="ID10482" class="variable_contents ID10482">
+		<img src="./img/225.png" />
+	</div>
+	<div id="ID10482-1" class="variable_contents ID10482">
+		<img src="./img/225.png" />
+	</div>
+	<div id="ID10482-2" class="variable_contents ID10482">
+		<img src="./img/225.png" />
+	</div>
+	<div id="ID10482-3" class="variable_contents ID10482">
+		<img src="./img/225.png" />
+	</div>
+
+
+	<!-- ゲーム -->
+	<div id="ID10490" class="variable_contents ID10490">
+		<div id="equip_image0" style="display:inline-block; text-align: center; width: 100%;">
+			<img src="./img/equip1.png" id="equip01" class="equip0" style="width: 100%;" />
+			<img src="./img/equip2.png" id="equip02" class="equip0" style="width: 100%;" />
+			<img src="./img/equip3.png" id="equip03" class="equip0" style="width: 100%;" />
+			<img src="./img/equip4.png" id="equip04" class="equip0" style="width: 100%;" />
+			<img src="./img/equip5.png" id="equip05" class="equip0" style="width: 100%;" />
+		</div>
+		<!--div class="col-xs-12">
+			<div style="margin: 1vw 0; text-align: center; width: 100%;">
+				<img src="img/378_2.jpg" id="equip01" class="equip0 select_border" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip02" class="equip0" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip03" class="equip0" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip04" class="equip0" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip05" class="equip0" style="width: 18%;" />
+			</div>
+			<div class="col-xs-12">
+				<img src="img/378_1.jpg" id="equip_image0" style="width: 100%;" />
+			</div>
+		</div-->
+	</div>
+	<div id="ID10490-1" class="variable_contents ID10490">
+		<p style="margin:0;width:100%;">もう一度タッチで武器を選択</p>
+		<div id="equip_image" style="display:inline-block; text-align: center; width: 100%;">
+			<img src="./img/equip1.png" id="equip1" class="equip" style="width: 100%;" />
+			<img src="./img/equip2.png" id="equip2" class="equip" style="width: 100%;" />
+			<img src="./img/equip3.png" id="equip3" class="equip" style="width: 100%;" />
+			<img src="./img/equip4.png" id="equip4" class="equip" style="width: 100%;" />
+			<img src="./img/equip5.png" id="equip5" class="equip" style="width: 100%;" />
+		</div>
+		<!--div class="col-xs-12">
+			<div style="margin: 1vw 0; text-align: center; width: 100%;">
+				<img src="img/378_2.jpg" id="equip1" class="equip select_border" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip2" class="equip" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip3" class="equip" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip4" class="equip" style="width: 18%;" />
+				<img src="img/378_2.jpg" id="equip5" class="equip" style="width: 18%;" />
+			</div>
+			<div class="col-xs-12">
+				<img src="img/378_1.jpg" id="equip_image" style="width: 100%;" />
+			</div>
+		</div-->
+	</div>
+	<div id="ID10490-2" class="variable_contents ID10490">
+		<img src="./img/weapon1.png" id="selected_weapon" style="width:100%;" />
+		<img src="./img/weapon1.png" id="weapon1" style="display:none;" />
+		<img src="./img/weapon2.png" id="weapon2" style="display:none;" />
+		<img src="./img/weapon3.png" id="weapon3" style="display:none;" />
+		<img src="./img/weapon4.png" id="weapon4" style="display:none;" />
+		<img src="./img/weapon5.png" id="weapon5" style="display:none;" />
+		<!--img src="img/378_2.jpg" /-->
+	</div>
+	<div id="ID10490-3" class="variable_contents ID10490">
+		<div class="row" style="background: #111; height:100%;">
+			<img src="./img/378_2.jpg" style="margin: 2vw; width: 96vw;" />
+			<div class="col-xs-12">
+				<p style="color: #FFF; font-weight: bold;">RANKING</p>
+				<ol style="padding-left: 5vw;">
+					<li style="color: #FFF;">AAA</li>
+					<li style="color: #FFF;">BBB</li>
+					<li style="color: #FFF;">CCC</li>
+					<li style="color: #FFF;">DDD</li>
+					<li style="color: #FFF;">EEE</li>
+				</ol>
+			</div>
+		</div>
+		<!--div class="row" style="background: #111; height:100%;">
+			<img src="./img/378_2.jpg" style="margin: 2vw; width: 96vw;" />
+			<div class="col-xs-12">
+				<p style="color: #FFF; font-weight: bold;">RANKING</p>
+				<ol>
+					<li style="color: #FFF;">AAA</li>
+					<li style="color: #FFF;">BBB</li>
+					<li style="color: #FFF;">CCC</li>
+					<li style="color: #FFF;">DDD</li>
+					<li style="color: #FFF;">EEE</li>
+				</ol>
+			</div>
+		</div-->
+	</div>
+
+
+	<!-- 学習 -->
+	<div id="ID10492" class="variable_contents ID10492">
+		<img src="./img/327.png" />
+	</div>
+	<div id="ID10492-1" class="variable_contents ID10492">
+		<img src="./img/327.png" />
+		<!--audio controls muted id="adID10492-1" class="audio">
+			<source src="medias/beeps/chime.mp3" />
+		</audio-->
+	</div>
+	<div id="ID10492-2" class="variable_contents ID10492">
+		<img src="./img/327.png" />
+		<!--audio controls muted id="adID10492-2" class="audio">
+			<source src="medias/beeps/chime.mp3" />
+		</audio-->
+	</div>
+	<div id="ID10492-3" class="variable_contents ID10492">
+		<img src="./img/327.png" />
+	</div>
+
+
+	<!-- 音楽 -->
+	<div id="ID10367" class="variable_contents ID10367">
+		<img src="./img/176_1.png" />
+	</div>
+	<div id="ID10367-1" class="variable_contents ID10367">
+		<img src="./img/176_1.png" />
+	</div>
+	<div id="ID10367-2" class="variable_contents ID10367">
+		<h2 class="content_title">MUSIC</h2>
+		<img src="./img/176_2.png" />
+		<audio muted id="adID10367-2" class="audio">
+			<source src="./medias/kimihashiranai_mv2017.mp3" />
+		</audio>
+	</div>
+	<div id="ID10367-3" class="variable_contents ID10367">
+		<h2 class="content_title">Hinako Ogawa-Kimiha shiranai- PV</h2>
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/pOwuYz33ecI?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=pOwuYz33ecI" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10367-3" preload="none" webkit-playsinline playsinline>
+			<source src="./medias/kimihashiranai_mv2017_short.mp4" type="video/mp4" />
+		</video>
+	</div>
+
+
+	<!-- 観光 -->
+	<div id="ID10381" class="variable_contents ID10381">
+		<img src="./img/213_2.jpg" />
+	</div>
+	<div id="ID10381-1" class="variable_contents ID10381">
+		<h2 class="content_title" style="color: #0A0;">偕楽園-Kairakuen- PV</h2>
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/EzqkHL5_5mA?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=EzqkHL5_5mA" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10381-1" preload="none" webkit-playsinline playsinline>
+			<source src="medias/Kairakuen.mp4" type="video/mp4" />
+		</video>
+	</div>
+	<div id="ID10381-2" class="variable_contents ID10381">
+		<img src="./img/213_2.jpg" />
+	</div>
+	<div id="ID10381-3" class="variable_contents ID10381">
+		<img src="./img/213_3.jpg" />
+	</div>
+
+
+	<!-- 名刺 -->
+	<div id="ID10307" class="variable_contents ID10307">
+		<h2 class="content_title">ご挨拶</h2>
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/_gXJ2fAyWqs?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=_gXJ2fAyWqs" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10307" preload="none" webkit-playsinline playsinline>
+			<source src="./medias/IntermediaLaboratory.mp4" type="video/mp4" />
+		</video>
+	</div>
+	<div id="ID10307-1" class="variable_contents ID10307">
+		<h2 class="content_title">ご挨拶</h2>
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/_gXJ2fAyWqs?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=_gXJ2fAyWqs" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10307-1" preload="none" webkit-playsinline playsinline>
+			<source src="./medias/IntermediaLaboratory.mp4" type="video/mp4" />
+		</video>
+	</div>
+	<div id="ID10307-2" class="variable_contents ID10307">
+		<img src="./img/258_2.png" />
+	</div>
+	<div id="ID10307-3" class="variable_contents ID10307">
+		<img src="./img/258_3.png" />
+	</div>
+
+
+	<!-- 居酒屋 -->
+	<div id="ID10123" class="variable_contents ID10123">
+		<div class="row izakaya">
+			<div class="col-xs-12"><img src="./img/izakaya_top.png" /></div>
+			<div class="col-xs-6 izakaya_box"><img src="./img/28031007_m.jpg" /></div>
+			<div class="col-xs-6 izakaya_box izakaya_txt">本格炙り系居酒屋が中目黒にオープン！！<br />今なら団体様10%OFFです！<br />この機会にぜひお越しくださいませ</div>
+			<div class="col-xs-6 izakaya_box"><img src="./img/49500401_m.jpg" /></div>
+			<div class="col-xs-6  izakaya_box izakaya_txt">最大10名様まで可能な個室を5部屋完備。<br />新年会・忘年会シーズンのご予約はお早めにお問い合わせください。</div>
+			<div class="col-xs-12 izakaya_title">炙り屋 MAP</div>
+			<div class="col-xs-12 izakaya_box"><img src="./img/izakaya_map.png" /></div>
+			<div class="col-xs-12 izakaya_box">
+				<div class="izakaya_subtitle">炙り屋</div>
+				<div class="izakaya_txt">東京都目黒区上目黒3-1-2<br />TEL:000-00-0000</div>
+			</div>
+			<div class="col-xs-12 izakaya_box izakaya_txt">copyright©︎ aburiya All rights reserved.</div>
+		</div>
+	</div>
+	<div id="ID10123-1" class="variable_contents ID10123">
+		<div class="row izakaya">
+			<div class="col-xs-12"><img src="./img/izakaya_top.png" /></div>
+			<div class="col-xs-6 izakaya_box"><img src="./img/28031007_m.jpg" /></div>
+			<div class="col-xs-6 izakaya_box izakaya_txt">本格炙り系居酒屋が中目黒にオープン！！<br />今なら団体様10%OFFです！<br />この機会にぜひお越しくださいませ</div>
+			<div class="col-xs-6 izakaya_box"><img src="./img/49500401_m.jpg" /></div>
+			<div class="col-xs-6  izakaya_box izakaya_txt">最大10名様まで可能な個室を5部屋完備。<br />新年会・忘年会シーズンのご予約はお早めにお問い合わせください。</div>
+			<div class="col-xs-12 izakaya_title">炙り屋 MAP</div>
+			<div class="col-xs-12 izakaya_box"><img src="./img/izakaya_map.png" /></div>
+			<div class="col-xs-12 izakaya_box">
+				<div class="izakaya_subtitle">炙り屋</div>
+				<div class="izakaya_txt">東京都目黒区上目黒3-1-2<br />TEL:000-00-0000</div>
+			</div>
+			<div class="col-xs-12 izakaya_box izakaya_txt">copyright©︎ aburiya All rights reserved.</div>
+		</div>
+	</div>
+	<div id="ID10123-2" class="variable_contents ID10123">
+		<div class="row izakaya">
+			<div class="col-xs-12 izakaya_title">炙り屋 メニュー</div>
+			<div class="col-xs-12 izakaya_box"><img src="./img/28031007_m.jpg" /></div>
+			<div class="col-xs-12 izakaya_box">
+				<div class="izakaya_subtitle">炙り屋 干物コース 3,500円</div>
+				<div class="izakaya_txt">沼津港で水揚げ・生産された干物を直送<br />藁焼きの香りと干物の程よく締まった身を<br />ご堪能ください。<br /></div>
+			</div>
+			<div class="col-xs-12 izakaya_box"><img src="./img/41043249_m.jpg" /></div>
+			<div class="col-xs-12 izakaya_box">
+				<div class="izakaya_subtitle">炙り屋 熟成肉コース 4,500円</div>
+				<div class="izakaya_txt">２年間指定倉庫で熟成された国産の和牛を贅沢に用いたコース。<br />自家製ソーセージやパテもご用意し、ビールとの相性は最高です。</div>
+			</div>
+			<div class="col-xs-12 izakaya_box"><img src="./img/59290692_m.jpg" /></div>
+			<div class="col-xs-12 izakaya_box">
+				<div class="izakaya_subtitle">炙り屋 飲み放題コース 2時間 1,500円</div>
+				<div class="izakaya_txt">様々な銘柄のビール、赤白ハウスワイン、各種サワーや日本酒・焼酎がついてこのお値段！</div>
+			</div>
+			<div class="col-xs-12 izakaya_box izakaya_txt">copyright©︎ aburiya All rights reserved.</div>
+		</div>
+	</div>
+	<div id="ID10123-3" class="variable_contents ID10123">
+		<div class="row izakaya">
+			<div class="col-xs-12 izakaya_title">炙り屋 クーポン COUPON</div>
+			<div class="col-xs-12 izakaya_box">
+				<div class="izakaya_subtitle">宴会コース 20%OFF!</div>
+				<div class="izakaya_txt">5名様以上のお客様に限り、宴会コースを20%OFF!!ご利用の際はこの画面を店員にご提示ください。<br /></div>
+				<div class="izakaya_title"><img src="./img/qr_code.jpg" /></div>
+			</div>
+			<div class="col-xs-12 izakaya_box izakaya_txt">copyright©︎ aburiya All rights reserved.</div>
+		</div>
+	</div>
+
+
+	<!-- バースデー -->
+	<div id="ID10288" class="variable_contents ID10288">
+		<video class="video" id="vdID10288" preload="none" webkit-playsinline playsinline>
+			<source src="medias/1_song_E.mp4" type="video/mp4">
+		</video>
+	</div>
+	<div id="ID10288-1" class="variable_contents ID10288">
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/LF_DxUmWoTw?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=LF_DxUmWoTw" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10288-1" preload="none" webkit-playsinline playsinline>
+			<source src="medias/1_song_E.mp4" type="video/mp4">
+		</video>
+	</div>
+	<div id="ID10288-2" class="variable_contents ID10288">
+		<img src="./img/2_tree.JPG" />
+	</div>
+	<div id="ID10288-3" class="variable_contents ID10288">
+		<!--iframe class="youtube" src="https://www.youtube.com/embed/8znAVrwhakE?enablejsapi=1&autoplay=1&loop=1&playsinline=1&playlist=8znAVrwhakE" allowfullscreen="true" allow="fullscreen"></iframe-->
+		<video class="video" id="vdID10288-3" preload="none" webkit-playsinline playsinline>
+			<source src="medias/3_song_C.mp4" type="video/mp4">
+		</video>
+	</div>
+</div>
+
+<div id="floating_button_area" class="hidden">
+	<p id="home_button" class="float_button">&#9664;HOME&nbsp;</p>
+</div>
+
+<!-- Beeps -->
+<div id="callback_audio">
+	<audio src="./medias/beeps/ok.mp3" id="beep_ok"></audio>
+	<audio src="./medias/beeps/ng.mp3" id="beep_ng"></audio>
+	<audio src="./medias/beeps/pass.mp3" id="beep_pass"></audio>
+	<audio src="./medias/beeps/warning.mp3" id="beep_warning"></audio>
+	<audio src="./medias/beeps/chime.mp3" id="beep_chime"></audio>
+</div>
+</body>
+</html>
