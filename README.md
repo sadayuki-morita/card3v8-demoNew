@@ -36,6 +36,25 @@
       - Asue社向け/その1 ('https://multi-touchcard.com/card3v8-demoNew/index-asue.html') /  サービスコード："asue"
       - Asue社向け/その2 ('https://multi-touchcard.com/card3v8-demoNew/index-asue2.html') /  サービスコード："asue2"
 
+    + cards1-demoNewで管理するデモページに遷移するもの
+      - 会社紹介 (https://multi-touchcard.com/cards1-demoNew/pages/mtllc/index-mtllc.html)  /  サービスコード：mtllc  
+      - 偕楽園観光 (https://multi-touchcard.com/cards1-demoNew/pages/mtllc/index-kairakuen.html)  /  サービスコード：kairakuen  
+          - 上記2ページは、2点式C-Cardデモ用白カード、ID：S1-1757、S1-1436 用
+      - ID-Checkページ (https://multi-touchcard.com/cards1-demoNew/pages/mtllc/index-idcheck.html)  /  サービスコード：idcheck   
+      - 動物園動作判定ページ (https://multi-touchcard.com/cards1-demoNew/pages/zoo/index.html)  /  サービスコード：zoo  
+          - 主にコースター、バッジ試作サンプルデモ用
+      - 動物園タッチ方向判定ページ (https://multi-touchcard.com/cards1-demoNew/pages/zoo-rote/index.html)  /  サービスコード：zoorote  
+          - 主にアクスタ、プレート試作サンプルデモ用
+      - 音楽動画再生ページ (https://multi-touchcard.com/cards1-demoNew/pages/cassette/index.html)  /  サービスコード：cassette      
+          - 主にカード、アクスタ、プレート試作サンプルデモ用
+      - 鉄道図鑑ページ (https://multi-touchcard.com/cards1-demoNew/pages/train/index.html)  /  サービスコード：train 
+          - 主にアクスタ、プレート試作サンプルデモ用
+          - Topページで、3種類のサンプル（ID：S1-57、S1-107、S1-582）を認証してページ遷移、そのページでタッチ方向×動作判定の24種類の鉄道写真表示する
+      - 鉄道図鑑ページ1 (https://multi-touchcard.com/cards1-demoNew/pages/train/index-all.html)  /  サービスコード：train1
+          - 1ページで、3種類のサンプルIDを認証してタッチ方向×動作判定の3ID×24＝72種類の鉄道写真表示する
+      - 鉄道図鑑ページ0 (https://multi-touchcard.com/cards1-demoNew/pages/train/index-all0.html)  /  サービスコード：train0    
+          - 1ページで、3種類のサンプル（ID：S1-57、S1-107、S1-582）を認証しタッチ方向×動作判定の3ID×24＝72種類の鉄道写真表示する      
+
 ## デモページの基本的な使い方
 
   - デモページエントリ用のQRコードを読んで示されたURLをブラウザで表示すると、サービスコード入力画面が表示されるので入力欄に、上記サービスコードを入力して[OK]をタッチ。
