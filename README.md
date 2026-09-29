@@ -53,7 +53,12 @@
       - 鉄道図鑑ページ1 (https://multi-touchcard.com/cards1-demoNew/pages/train/index-all.html)  /  サービスコード：train1
           - 1ページで、3種類のサンプルIDを認証してタッチ方向×動作判定の3ID×24＝72種類の鉄道写真表示する
       - 鉄道図鑑ページ0 (https://multi-touchcard.com/cards1-demoNew/pages/train/index-all0.html)  /  サービスコード：train0    
-          - 1ページで、3種類のサンプル（ID：S1-57、S1-107、S1-582）を認証しタッチ方向×動作判定の3ID×24＝72種類の鉄道写真表示する      
+          - 1ページで、3種類のサンプル（ID：S1-57、S1-107、S1-582）を認証しタッチ方向×動作判定の3ID×24＝72種類の鉄道写真表示する  
+      - ドライブゲームページ (https://multi-touchcard.com/cards1-demoNew/pages/game/drive-gameDT3.html)  /  サービスコード：drive   
+          - タブレットデモ用ページで、S1系IDすべてのサンプルで動作し、上下でスタート、停止（閾値動作判定）、左右で自動車コントロール（疑似アナログ制御）
+      - スロットマシンゲームページ (https://multi-touchcard.com/cards1-demoNew/pages/game/slot-game2.html)  /  サービスコード：slot   
+          - スマホ用デモ用ページで、S1系IDすべてのサンプルで動作し、上でスロットスタート、右で課金（閾値動作判定）。ページ表示直後にゲームスタートボタンを指でタッチする必要がある。（iOSの音声制御のため）          
+
 
 ## デモページの基本的な使い方
 
